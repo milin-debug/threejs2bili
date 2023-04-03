@@ -9,6 +9,8 @@ import { ref, onMounted } from 'vue'
 import { Scene, PerspectiveCamera, WebGLRenderer, AxesHelper, PlaneGeometry, MeshBasicMaterial, Mesh, BoxGeometry, Clock } from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import gsap from 'gsap'
+import * as Dat from 'dat.gui'
+const dat = new Dat.GUI()
 const containerRef = ref<HTMLDivElement>()
 
 const scene = new Scene()
@@ -40,17 +42,33 @@ cube.rotation.set(Math.PI / 4, 0, 0) // 顺时针
 scene.add(cube)
 const controls = new OrbitControls(camera, renderer.domElement)
 controls.enableDamping = true
-const animate1 = gsap.to(cube.position, {
-  duration: 1.5,
-  ease: 'slow(0.7, 0.7, false)',
-  delay: 2,
-  repeat: -1,
-  yoyo: true,
-  x: 12,
-  onComplete: () => {
-    console.log('complete')
-  }
-})
+const addMenuItem = () => {
+  // x 轴坐标
+  dat
+    .add(cube.position, 'x')
+    .max(10)
+    .min(0)
+    .step(0.01)
+    .name('移动x轴')
+    .onChange(value => {
+      console.log('我是当前正在移动的x轴', value)
+    })
+    .onFinishChange(value => {
+      console.log('我是当前移动结束的x轴', value)
+    })
+}
+
+// const animate1 = gsap.to(cube.position, {
+//   duration: 1.5,
+//   ease: 'slow(0.7, 0.7, false)',
+//   delay: 2,
+//   repeat: -1,
+//   yoyo: true,
+//   x: 12,
+//   onComplete: () => {
+//     console.log('complete')
+//   }
+// })
 gsap.to(cube.rotation, { duration: 2.5, ease: 'rough({ strength: 1, points: 20, template: none.out, taper: none, randomize: true, clamp: false })', x: Math.PI * 2 })
 function render () {
   controls.update()
@@ -59,6 +77,7 @@ function render () {
 }
 onMounted(() => {
   containerRef.value?.appendChild(renderer.domElement)
+  addMenuItem()
   render()
 })
 // 监听鼠标双击事件
