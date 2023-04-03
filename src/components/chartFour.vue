@@ -5,7 +5,7 @@
 
 <script setup lang='ts'>
 import { ref, onMounted } from 'vue'
-import { Scene, PerspectiveCamera, WebGLRenderer, AxesHelper, PlaneGeometry, MeshBasicMaterial, Mesh, BufferGeometry, BufferAttribute } from 'three'
+import { Scene, PerspectiveCamera, WebGLRenderer, AxesHelper, PlaneGeometry, Color, MeshBasicMaterial, Mesh, BufferGeometry, BufferAttribute } from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
 const containerRef = ref<HTMLDivElement>()
@@ -29,25 +29,21 @@ const plane = new Mesh(planeGeometry, meshBasicMaterial)
 
 plane.rotation.x = -0.5 * Math.PI
 scene.add(plane)
-const geometry = new BufferGeometry()
-// 创建一个简单的矩形. 在这里我们左上和右下顶点被复制了两次。
-// 因为在两个三角面片里，这两个顶点都需要被用到。
-// Float32Array    x y z
-const vertices = new Float32Array([
-  -1.0, -1.0, 1.0,
-  1.0, -1.0, 1.0,
-  1.0, 1.0, 1.0,
-  1.0, 1.0, 1.0,
-  -1.0, 1.0, 1.0,
-  -1.0, -1.0, 1.0
-])
 
-// itemSize = 3 因为每个顶点都是一个三元组。
-// 这里只设置了位置
-geometry.setAttribute('position', new BufferAttribute(vertices, 3))
-const material = new MeshBasicMaterial({ color: 0xff0000 })
-const face = new Mesh(geometry, material)
-scene.add(face)
+for (let i = 0; i < 50; i++) {
+  const geometry = new BufferGeometry()
+  // Float32Array缓冲区元素个数
+  const vertices = new Float32Array(9)
+  for (let j = 0; j < 9; j++) {
+    // 介于-5 到 5之间
+    vertices[j] = Math.random() * 10 - 5 // 坐标位置
+  }
+  geometry.setAttribute('position', new BufferAttribute(vertices, 3))
+  const color = new Color(Math.random(), Math.random(), Math.random())
+  const material = new MeshBasicMaterial({ color, transparent: true, opacity: Math.random() })
+  const face = new Mesh(geometry, material)
+  scene.add(face)
+}
 
 const controls = new OrbitControls(camera, renderer.domElement)
 controls.enableDamping = true
