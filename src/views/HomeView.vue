@@ -1,10 +1,10 @@
 <template>
   <div class="home">
-    <ChartThree />
+    <chartFour />
   </div>
 </template>
 
 <script lang="ts" setup>
-import ChartThree from '@/components/chartThree.vue' // @ is an alias to /src
+import chartFour from '@/components/chartFour.vue' // @ is an alias to /src
 
 </script>
