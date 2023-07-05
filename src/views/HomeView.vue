@@ -1,10 +1,10 @@
 <template>
   <div class="home">
-    <wenLi />
+    <pointLight />
   </div>
 </template>
 
 <script lang="ts" setup>
-import wenLi from '@/components/wenLi.vue' // @ is an alias to /src
+import pointLight from '@/components/pointLight.vue' // @ is an alias to /src
 
-</script>
+</script> 

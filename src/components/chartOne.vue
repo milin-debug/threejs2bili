@@ -18,7 +18,7 @@ camera.position.set(-10, 40, 30)
 camera.lookAt(scene.position)
 
 const renderer = new WebGLRenderer()
-renderer.setClearColor('#fb7299', 0.5)
+renderer.setClearColor('#f04c0a', 0.5)
 renderer.setSize(window.innerWidth, window.innerHeight)
 
 const axes = new AxesHelper(40)
@@ -27,18 +27,19 @@ const planeGeometry = new PlaneGeometry(60, 20)
 const meshBasicMaterial = new MeshBasicMaterial({ color: '#1e1e1e' })
 const plane = new Mesh(planeGeometry, meshBasicMaterial)
 
-plane.rotation.x = -0.5 * Math.PI
+// plane.rotation.x = -0.5 * Math.PI  //  负数是 顺时针
 scene.add(plane)
 
 const cubeGeometry = new BoxGeometry(2, 3, 4)
 const cubeMaterial = new MeshBasicMaterial({ color: 0x00ff00 })
 const cube = new Mesh(cubeGeometry, cubeMaterial)
 cube.position.x = 3
-cube.scale.set(1, 2, 4)
-cube.rotation.set(Math.PI / 4, 0, 0) // 顺时针
+cube.scale.set(1, 2, 8)
+cube.rotation.set(Math.PI / 2, 0, 0) // 正数是 逆时针
 scene.add(cube)
 const controls = new OrbitControls(camera, renderer.domElement)
 const clock = new Clock()
+//   60帧 是    刷新的间隔 是   1000毫秒 /60
 function render () {
   // 获取时钟运行的总时长
   const time = clock.getElapsedTime()

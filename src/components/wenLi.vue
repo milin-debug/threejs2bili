@@ -50,9 +50,9 @@ scene.add(plane);
 
 const geometry = new BoxGeometry(5, 5, 5);
 // 添加纹理
-const texture = new TextureLoader().load(require("../assets/awso.jpg"));
+const texture = new TextureLoader().load(require("../assets/color.jpg"));
 //环境遮挡图
-const aoMapTexture=new TextureLoader().load(require("../assets/awso.jpg"));
+const aoMapTexture=new TextureLoader().load(require("../assets/ambientOcclusion.jpg"));
 //设置偏移
 // texture.offset.set(0,0.5)
 //设置旋转45度 及旋转中心点 旋转是 逆时针的
@@ -70,14 +70,14 @@ const aoMapTexture=new TextureLoader().load(require("../assets/awso.jpg"));
 
 //透明材质  alphaMap与transparent配合
 //透明材质图
-// const alphaTexture= new TextureLoader().load(require("../assets/heibai.png"));
-// const material = new MeshBasicMaterial({  map: texture,alphaMap:alphaTexture,transparent:true,opacity:0.3 });
-const material = new MeshBasicMaterial({  map: texture,aoMap:aoMapTexture});
+const alphaTexture= new TextureLoader().load(require("../assets/alpha.jpg"));
+const material = new MeshBasicMaterial({  map: texture,alphaMap:alphaTexture,transparent:true,aoMap:aoMapTexture });
+// const material = new MeshBasicMaterial({  map: texture});
 const cube = new Mesh(geometry, material);
 //aoMap
 scene.add(cube);
 geometry.setAttribute('uv2',new BufferAttribute(geometry.attributes.uv.array,2))
-console.log(cube)
+console.log(geometry)
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 

@@ -38,13 +38,13 @@ cube.scale.set(1, 1, 1)
 cube.rotation.set(Math.PI / 4, 0, 0) // 顺时针
 scene.add(cube)
 const controls = new OrbitControls(camera, renderer.domElement)
-controls.enableDamping = true
+controls.enableDamping = true //设置控制器阻尼
 const animate1 = gsap.to(cube.position, {
   duration: 1.5,
   ease: 'slow(0.7, 0.7, false)',
   delay: 2,
   repeat: -1,
-  yoyo: true,
+  yoyo: true, 
   x: 12,
   onComplete: () => {
     console.log('complete')

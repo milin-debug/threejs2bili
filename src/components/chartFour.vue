@@ -24,16 +24,18 @@ renderer.setSize(window.innerWidth, window.innerHeight)
 const axes = new AxesHelper(40)
 scene.add(axes)
 const planeGeometry = new PlaneGeometry(60, 20)
-const meshBasicMaterial = new MeshBasicMaterial({ color: '#1e1e1e' })
+const meshBasicMaterial = new MeshBasicMaterial({ color: '#0078d4' })
 const plane = new Mesh(planeGeometry, meshBasicMaterial)
-
+ console.log(11111,plane)
 plane.rotation.x = -0.5 * Math.PI
 scene.add(plane)
 
 for (let i = 0; i < 50; i++) {
-  const geometry = new BufferGeometry()
+  //自定义的几何体
+  const geometry = new BufferGeometry() 
   // Float32Array缓冲区元素个数
   const vertices = new Float32Array(9)
+  //  一个顶点由三个 xyz三个坐标点构成   ，一个三角的面有三个点构成  3*3
   for (let j = 0; j < 9; j++) {
     // 介于-5 到 5之间
     vertices[j] = Math.random() * 10 - 5 // 坐标位置
